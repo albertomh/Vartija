@@ -1,1 +1,7 @@
-boto3==1.24.53
+# Dev
+pycodestyle==2.9.1    # PEP8 style validator.
+mypy==0.931           # Type annotation checker.
+boto3-stubs==1.24.53  # boto3 type annotations.
+
+# Common
+boto3==1.24.53        # AWS SDK for Python.
