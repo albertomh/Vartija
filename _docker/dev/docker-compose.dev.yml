@@ -12,6 +12,23 @@ services:
       - "8000:8000"
     working_dir: /home/dynamodblocal
 
+  vartija:
+    depends_on:
+      - dynamodb-local
+    links:
+      - dynamodb-local
+    build:
+      context: ../..  # The project root.
+      dockerfile: _docker/dev/Dockerfile.vartija.dev  # Relative to 'context'.
+    container_name: vartija
+    ports:
+      - "8080:8080"
+
+    environment:
+      - AWS_ACCESS_KEY_ID=DUMMYID
+      - AWS_SECRET_ACCESS_KEY=DUMMYKEY
+      - AWS_REGION=eu-west-1
+
 networks:
   vartija_net:
     name: vartija_net
