@@ -1,0 +1,20 @@
+# Vartija dev Docker compose
+# Copyright 2022 Alberto Morón Hernández
+version: '3.8'
+
+services:
+  # https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#docker
+  dynamodb-local:
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+
+networks:
+  vartija_net:
+    name: vartija_net
+    driver: "bridge"
