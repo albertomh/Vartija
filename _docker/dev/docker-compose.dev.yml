@@ -7,11 +7,9 @@ services:
   dynamodb-local:
     image: "amazon/dynamodb-local:latest"
     container_name: dynamodb-local
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    command: "-jar DynamoDBLocal.jar -inMemory"
     ports:
       - "8000:8000"
-    volumes:
-      - "./dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
 
 networks:
