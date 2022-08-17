@@ -7,10 +7,12 @@ services:
   dynamodb-local:
     image: "amazon/dynamodb-local:latest"
     container_name: dynamodb-local
+    working_dir: /home/dynamodblocal
     command: "-jar DynamoDBLocal.jar -inMemory"
     ports:
       - "8000:8000"
-    working_dir: /home/dynamodblocal
+    environment:
+      - "TZ=UTC"
 
   vartija:
     depends_on:
@@ -23,11 +25,11 @@ services:
     container_name: vartija
     ports:
       - "8080:8080"
-
     environment:
-      - AWS_ACCESS_KEY_ID=DUMMYID
-      - AWS_SECRET_ACCESS_KEY=DUMMYKEY
-      - AWS_REGION=eu-west-1
+      - "TZ=UTC"
+      - "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+      - "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+      - "AWS_REGION=$AWS_REGION"
 
 networks:
   vartija_net:
