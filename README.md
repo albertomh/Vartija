@@ -23,7 +23,7 @@ AWS_ACCESS_KEY_ID=<KEY>
 AWS_SECRET_ACCESS_KEY=<SECRET>
 AWS_REGION=eu-west-1
 ```
-This will be automatically be picked up by docker-compose when developing locally.
+This will be picked up by docker-compose when developing locally.
 
 **Optional (VS Code users)**  
 Add the [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and 
@@ -34,13 +34,13 @@ to VS Code.
 Create containers for `dynamodb-local` & the vartija app by running the following command from the project root:  
 `docker compose --file ./_docker/dev/docker-compose.dev.yml up --build`
 
-Stop the db & app containers:  
+Stop the DynamoDB & app containers:  
 `docker compose --file ./_docker/dev/docker-compose.dev.yml down`
 
 ### Containerised services
 Two services are available as Docker containers when developing locally:  
-- `dynamodb-local` Uses [the official Docker image](https://hub.docker.com/r/amazon/dynamodb-local/), running under port 8000.
-- `vartija` The app code, running under port 8080.
+- `dynamodb-local` Uses [the official Docker image](https://hub.docker.com/r/amazon/dynamodb-local/), running on port 8000.
+- `vartija` The serverless app, running on port 8080.
 
 These are orchestrated via the `_docker/dev/docker-compose.dev.yml` Docker Compose file.
 
