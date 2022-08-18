@@ -2,18 +2,22 @@
 Vartija
 Copyright 2022 Alberto Morón Hernández
 
-Database schema
-▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+Single-table database schema
+▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
 """
 from typing import List, TypedDict
 
+from mypy_boto3_dynamodb.type_defs import (
+    AttributeDefinitionTypeDef,
+    KeySchemaElementTypeDef,
+    ProvisionedThroughputTypeDef
+)
 
-# Schema type definitions
-AttributeDefinitionEntry = TypedDict('AttributeDefinitionEntry', {'AttributeName': str, 'AttributeType': str})
-KeySchemaEntry = TypedDict('KeySchemaEntry', {'AttributeName': str, 'KeyType': str})
-
-class VartijaDDBTable(TypedDict):
-    TableName: str
-    AttributeDefinitions: List[AttributeDefinitionEntry]
-    KeySchema: List[KeySchemaEntry]
+VartijaDDBTable = TypedDict(
+    'VartijaDDBTable', {
+        'TableName': str,
+        'AttributeDefinitions': List[AttributeDefinitionTypeDef],
+        'KeySchema': List[KeySchemaElementTypeDef],
+        'ProvisionedThroughput': ProvisionedThroughputTypeDef
+})
