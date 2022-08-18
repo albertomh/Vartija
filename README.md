@@ -19,9 +19,10 @@ Tested using VS Code and PyCharm as IDEs.
 3. Install [`awscli` v2](docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and configure it for your AWS account.
 4. Create the file `./_docker/dev/.env` with the following contents:
 ```
+AWS_DYNAMODB_ENDPOINT=http://dynamodb-local:8000
 AWS_ACCESS_KEY_ID=<KEY>
 AWS_SECRET_ACCESS_KEY=<SECRET>
-AWS_REGION=eu-west-1
+AWS_REGION=local
 ```
 This will be picked up by docker-compose when developing locally.
 
@@ -49,14 +50,17 @@ DynamoDB-local is run with the `-inMemory` flag, meaning the database is not
 persisted to disk neither on the host or the container it runs in, existing only 
 for the duration of the container.
 
-You can interact with DynamoDB-local via the AWS CLI by specifying the endpoint:  
-eg. `aws dynamodb list-tables --endpoint-url http://localhost:8000`
+You can interact with `DynamoDB-local` via the AWS CLI by specifying the endpoint:  
+eg. `aws dynamodb list-tables --endpoint-url http://localhost:8000`  
+Note how `localhost` is used when the AWS CLI is invoked from your local environment. 
+In application code that will run from the `vartija` Docker container, the 
+`dynamodb-local` hostname is used instead.
 
 #### The Vartija container
 The local Vartija container is based on the [amazon/aws-lambda-python](https://hub.docker.com/r/amazon/aws-lambda-python) Docker image. 
 
 Interact with the local instance of Vartija with:  
-`curl -XPOST "http://localhost:8080/2015-03-31/functions/function/invocations" -d '{"payload":"hello world!"}'`
+`curl -XPOST "http://localhost:8080/2015-03-31/functions/function/invocations" -d '{"payload": "hello world!"}'`
 
 ### Check typings & PEP8 style compliance
 Create a virtualenv and install dependencies:
