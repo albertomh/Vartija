@@ -8,15 +8,13 @@ Lambda entrypoint
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
 """
-
 import sys
 
-from .dynamodb import DynamoDB
-from .schema import Schema
+
+from .database import Database
 
 
 def handler(event, context):
-    #ddb = DynamoDB()
-    #schema = Schema(ddb)
+    db = Database()
 
     return f"Vartija using Python {sys.version_info.major}.{sys.version_info.minor}"

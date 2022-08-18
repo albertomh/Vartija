@@ -14,6 +14,19 @@ from mypy_boto3_dynamodb import DynamoDBClient
 
 class Database:
 
+    __dynamodb: DynamoDBClient = None  # type: ignore
+
+    def __init__(self):
+        self.__dynamodb = self.get_dynamodb()
+
+    def get_dynamodb(self) -> DynamoDBClient:
+        """
+        Return the DynamoDB instance used by Vartija.
+        """
+        if self.__dynamodb is None:
+            self.__dynamodb = self.create_ddb_client()
+        return self.__dynamodb
+
     def create_ddb_client(self) -> DynamoDBClient:
         """
         Establish a connection with the DynamoDB instance.
