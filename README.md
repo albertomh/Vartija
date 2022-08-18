@@ -47,11 +47,12 @@ These are orchestrated via the `_docker/dev/docker-compose.dev.yml` Docker Compo
 
 #### DynamoDB local
 DynamoDB-local is run with the `-inMemory` flag, meaning the database is not 
-persisted to disk neither on the host or the container it runs in, existing only 
-for the duration of the container.
+persisted to disk, existing only for the duration of the container.  
+The `-sharedDb` flag is also used. Otherwise it would not be possible to query 
+the table using the AWS CLI from outside the container.
 
 You can interact with `DynamoDB-local` via the AWS CLI by specifying the endpoint:  
-eg. `aws dynamodb list-tables --endpoint-url http://localhost:8000`  
+eg. `aws dynamodb list-tables --endpoint-url http://localhost:8000  --region local`  
 Note how `localhost` is used when the AWS CLI is invoked from your local environment. 
 In application code that will run from the `vartija` Docker container, the 
 `dynamodb-local` hostname is used instead.
