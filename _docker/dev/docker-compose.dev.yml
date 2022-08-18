@@ -27,6 +27,7 @@ services:
       - "8080:8080"
     environment:
       - "TZ=UTC"
+      - "AWS_DYNAMODB_ENDPOINT=$AWS_DYNAMODB_ENDPOINT"
       - "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
       - "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
       - "AWS_REGION=$AWS_REGION"
