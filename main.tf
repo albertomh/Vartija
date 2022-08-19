@@ -5,6 +5,7 @@ Copyright 2022 Alberto Morón Hernández
 ■ Table of Contents ■
   SETUP
   ECR
+  IAM
 
 ═════════════════════════════════════════════════════════════════════════════ */
 
@@ -64,4 +65,25 @@ data aws_ecr_image lambda_image {
   ]
   repository_name = local.ecr_repository_name
   image_tag       = local.ecr_image_tag
+}
+
+//  IAM ────────────────────────────────────────────────────────────────────────
+
+resource aws_iam_role lambda {
+  name = "vartija-lambda-role"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
 }
