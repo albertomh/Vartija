@@ -109,3 +109,8 @@ resource aws_lambda_function_url vartija {
   function_name      = aws_lambda_function.vartija.function_name
   authorization_type = "NONE"
 }
+
+resource "aws_cloudwatch_log_group" "vartija" {
+  name              = "/aws/lambda/${aws_lambda_function.vartija.function_name}"
+  retention_in_days = 7
+}
