@@ -64,14 +64,14 @@ Interact with the local instance of Vartija with:
 `curl -XPOST "http://localhost:8080/2015-03-31/functions/function/invocations" -d '{"payload": "hello world!"}'`
 
 ### Check typings & PEP8 style compliance
-Create a virtualenv and install dependencies:
+1. Create a virtualenv locally and install dependencies:
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt --quiet
 ```
 
-Run type annotation checker & PEP8 style validator:
+2. Run the type annotation checker & the PEP8 style validator:
 ```
 mypy -p vartija
 pycodestyle vartija
