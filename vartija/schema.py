@@ -6,6 +6,7 @@ Single-table database schema
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
 """
+import logging
 from typing import List, TypedDict
 
 from mypy_boto3_dynamodb.type_defs import (
@@ -13,6 +14,8 @@ from mypy_boto3_dynamodb.type_defs import (
     KeySchemaElementTypeDef,
     ProvisionedThroughputTypeDef
 )
+from mypy_boto3_dynamodb.client import BotocoreClientError
+
 
 VartijaDDBTable = TypedDict(
     'VartijaDDBTable', {
@@ -71,3 +74,18 @@ class Schema:
         }
 
         return vartija_table
+
+    def run_migrations(self) -> None:
+        """
+        Create the necessary DynamoDB table and items.
+        """
+
+        schema: VartijaDDBTable = Schema.get_schema()
+
+        try:
+            table = self.db.get_dynamodb().create_table(**schema)
+            logging.getLogger().info("Created DynamoDB table 'VartijaData'.")
+            logging.getLogger().info(f"\ntablenames: {self.db.get_dynamodb().list_tables()['TableNames']}\n")
+        except BotocoreClientError:
+            logging.getLogger().error(f"Unable to create DynamoDB table 'VartijaData'. It might already exist.")
+            raise
