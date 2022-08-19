@@ -6,6 +6,7 @@ Copyright 2022 Alberto Morón Hernández
   SETUP
   ECR
   IAM
+  LAMBDA
 
 ═════════════════════════════════════════════════════════════════════════════ */
 
@@ -90,4 +91,17 @@ EOF
 resource aws_iam_role_policy_attachment lambda_basic {
   role       = aws_iam_role.lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+//  LAMBDA ─────────────────────────────────────────────────────────────────────
+
+resource aws_lambda_function vartija {
+  depends_on = [
+    null_resource.ecr_image
+  ]
+  function_name = "vartija"
+  role = aws_iam_role.lambda.arn
+  timeout = 300
+  image_uri = "${aws_ecr_repository.repo.repository_url}@${data.aws_ecr_image.lambda_image.id}"
+  package_type = "Image"
 }
