@@ -14,9 +14,12 @@ venv/
 
 .vscode/
 
+.terraform/
+*.tfstate*
 
 #   Python ─────────────────────────────────────────────────────────────────────
 
 __pycache__/
 .mypy_cache/
 .pytest_cache/
+ git add 
