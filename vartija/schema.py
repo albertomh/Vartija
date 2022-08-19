@@ -16,6 +16,8 @@ from mypy_boto3_dynamodb.type_defs import (
 )
 from mypy_boto3_dynamodb.client import BotocoreClientError
 
+from .database import Database
+
 
 VartijaDDBTable = TypedDict(
     'VartijaDDBTable', {
@@ -27,8 +29,12 @@ VartijaDDBTable = TypedDict(
 
 class Schema:
 
-    def __init__(self) -> None:
-        pass
+    db: Database
+
+    def __init__(self, db: Database) -> None:
+        self.db = db
+        if self.db.has_pending_migrations():
+            self.run_migrations()
 
     @staticmethod
     def get_schema() -> VartijaDDBTable:
