@@ -38,3 +38,11 @@ class Database:
             aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
             aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
         )
+
+    def has_pending_migrations(self) -> bool:
+        """
+        Return whether or not all the tables defined in `Schema::get_schema` 
+        have been created in the DynamoDB instance.
+        """
+        tables = self.get_dynamodb().list_tables()['TableNames']
+        return len(tables) < 1
