@@ -6,9 +6,11 @@ FROM amazon/aws-lambda-python:3.9
 # [docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-create-from-base]
 # LAMBDA_TASK_ROOT == /var/task
 
-COPY vartija/*.py "${LAMBDA_TASK_ROOT}/vartija/"
+WORKDIR "${LAMBDA_TASK_ROOT}"
 
-COPY requirements.txt  .
-RUN  pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
+COPY vartija/*.py "./vartija/"
+
+COPY requirements.txt .
+RUN  pip3 install -r requirements.txt
 
 CMD [ "vartija/main.handler" ]
