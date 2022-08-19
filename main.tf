@@ -105,3 +105,7 @@ resource aws_lambda_function vartija {
   image_uri = "${aws_ecr_repository.repo.repository_url}@${data.aws_ecr_image.lambda_image.id}"
   package_type = "Image"
 }
+resource aws_lambda_function_url vartija {
+  function_name      = aws_lambda_function.vartija.function_name
+  authorization_type = "NONE"
+}
